@@ -58,10 +58,10 @@ setup(
     },
     keywords="security, file-permissions, linux, suid, sgid, world-writable, privilege-escalation, file-integrity, monitoring",
     project_urls={
-        "Bug Reports": "https://github.com/Rohithvicky/unsafe-file-scanner/issues",
-        "Source": "https://github.com/Rohithvicky/unsafe-file-scanner",
-        "Documentation": "https://github.com/Rohithvicky/unsafe-file-scanner/wiki",
-        "Download": "https://github.com/Rohithvicky/unsafe-file-scanner/archive/v1.0.0.tar.gz",
+        "Bug Reports": "https://github.com/yourusername/unsafe-file-scanner/issues",
+        "Source": "https://github.com/yourusername/unsafe-file-scanner",
+        "Documentation": "https://github.com/yourusername/unsafe-file-scanner/wiki",
+        "Download": "https://github.com/yourusername/unsafe-file-scanner/archive/v1.0.0.tar.gz",
     },
     zip_safe=False,
     extras_require={
