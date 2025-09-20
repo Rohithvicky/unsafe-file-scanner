@@ -1,0 +1,264 @@
+# Contributing to Unsafe File Scanner
+
+Thank you for your interest in contributing to Unsafe File Scanner! This document provides guidelines and information for contributors.
+
+## Table of Contents
+
+- [Code of Conduct](#code-of-conduct)
+- [Getting Started](#getting-started)
+- [Development Setup](#development-setup)
+- [Contributing Guidelines](#contributing-guidelines)
+- [Pull Request Process](#pull-request-process)
+- [Issue Reporting](#issue-reporting)
+- [Coding Standards](#coding-standards)
+- [Testing](#testing)
+- [Documentation](#documentation)
+
+## Code of Conduct
+
+This project follows a code of conduct that we expect all contributors to follow. Please be respectful, inclusive, and constructive in all interactions.
+
+## Getting Started
+
+1. **Fork the repository** on GitHub
+2. **Clone your fork** locally
+3. **Create a new branch** for your feature or bugfix
+4. **Make your changes** following our coding standards
+5. **Test your changes** thoroughly
+6. **Submit a pull request**
+
+## Development Setup
+
+### Prerequisites
+
+- Python 3.8 or higher
+- Git
+- pip (Python package manager)
+
+### Setup Steps
+
+```bash
+# Clone your fork
+git clone https://github.com/yourusername/unsafe-file-scanner.git
+cd unsafe-file-scanner
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install in development mode
+pip install -e .
+
+# Install development dependencies
+pip install -r requirements-dev.txt
+```
+
+### Development Dependencies
+
+```bash
+# Install additional development tools
+pip install pytest black flake8 mypy sphinx
+```
+
+## Contributing Guidelines
+
+### Types of Contributions
+
+We welcome several types of contributions:
+
+1. **Bug Fixes**: Fix existing issues
+2. **New Features**: Add new functionality
+3. **Documentation**: Improve or add documentation
+4. **Tests**: Add or improve test coverage
+5. **Performance**: Optimize existing code
+6. **Security**: Improve security features
+
+### Before You Start
+
+1. **Check existing issues** to see if your idea is already being worked on
+2. **Create an issue** to discuss major changes before implementing
+3. **Read the documentation** to understand the codebase structure
+4. **Follow the coding standards** outlined below
+
+## Pull Request Process
+
+### Before Submitting
+
+1. **Test your changes** thoroughly
+2. **Update documentation** if needed
+3. **Add tests** for new functionality
+4. **Ensure all tests pass**
+5. **Update CHANGELOG.md** if applicable
+
+### Pull Request Template
+
+When creating a pull request, please include:
+
+- **Description**: What changes were made and why
+- **Type**: Bug fix, feature, documentation, etc.
+- **Testing**: How the changes were tested
+- **Breaking Changes**: Any breaking changes (if applicable)
+- **Related Issues**: Link to related issues
+
+### Review Process
+
+1. **Automated checks** must pass
+2. **Code review** by maintainers
+3. **Testing** on multiple platforms
+4. **Documentation review** if applicable
+
+## Issue Reporting
+
+### Before Creating an Issue
+
+1. **Search existing issues** to avoid duplicates
+2. **Check if it's already fixed** in the latest version
+3. **Gather information** about your environment
+
+### Issue Template
+
+When creating an issue, please include:
+
+- **Description**: Clear description of the problem
+- **Steps to Reproduce**: How to reproduce the issue
+- **Expected Behavior**: What should happen
+- **Actual Behavior**: What actually happens
+- **Environment**: OS, Python version, etc.
+- **Screenshots**: If applicable
+
+## Coding Standards
+
+### Python Code Style
+
+- **Follow PEP 8** for Python code style
+- **Use type hints** where appropriate
+- **Write docstrings** for all functions and classes
+- **Use meaningful variable names**
+- **Keep functions small and focused**
+
+### Code Formatting
+
+We use `black` for code formatting:
+
+```bash
+black unsafe_file_scanner/
+```
+
+### Linting
+
+We use `flake8` for linting:
+
+```bash
+flake8 unsafe_file_scanner/
+```
+
+### Type Checking
+
+We use `mypy` for type checking:
+
+```bash
+mypy unsafe_file_scanner/
+```
+
+## Testing
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=unsafe_file_scanner
+
+# Run specific test file
+pytest tests/test_scanner.py
+```
+
+### Writing Tests
+
+- **Write tests** for new functionality
+- **Test edge cases** and error conditions
+- **Use descriptive test names**
+- **Keep tests simple and focused**
+- **Mock external dependencies**
+
+### Test Structure
+
+```
+tests/
+├── unit/
+│   ├── test_scanner.py
+│   ├── test_gui.py
+│   └── test_rules.py
+├── integration/
+│   ├── test_cli.py
+│   └── test_gui_integration.py
+└── fixtures/
+    ├── test_files/
+    └── config_files/
+```
+
+## Documentation
+
+### Code Documentation
+
+- **Write docstrings** for all public functions and classes
+- **Use Google style** docstrings
+- **Include examples** in docstrings where helpful
+- **Document parameters** and return values
+
+### User Documentation
+
+- **Update README.md** for user-facing changes
+- **Update INSTALLATION.md** for installation changes
+- **Add examples** for new features
+- **Update screenshots** for GUI changes
+
+### API Documentation
+
+- **Document all public APIs**
+- **Include type information**
+- **Provide usage examples**
+- **Keep documentation up to date**
+
+## Release Process
+
+### Version Numbering
+
+We use [Semantic Versioning](https://semver.org/):
+
+- **MAJOR**: Incompatible API changes
+- **MINOR**: New functionality (backward compatible)
+- **PATCH**: Bug fixes (backward compatible)
+
+### Release Checklist
+
+1. **Update version** in `setup.py` and `__init__.py`
+2. **Update CHANGELOG.md**
+3. **Run all tests**
+4. **Update documentation**
+5. **Create release** on GitHub
+6. **Publish to PyPI** (maintainers only)
+
+## Getting Help
+
+- **GitHub Discussions**: For questions and general discussion
+- **GitHub Issues**: For bug reports and feature requests
+- **Email**: For security issues (use private communication)
+
+## Recognition
+
+Contributors will be recognized in:
+
+- **CONTRIBUTORS.md** file
+- **Release notes** for significant contributions
+- **GitHub contributors** page
+
+## License
+
+By contributing to this project, you agree that your contributions will be licensed under the same MIT License that covers the project.
+
+---
+
+Thank you for contributing to Unsafe File Scanner! 🚀

@@ -188,6 +188,12 @@ class UnsafeFileScannerGUI:
             command=self.clear_realtime_results,
             state="disabled"
         )
+        self.test_realtime_btn = ttk.Button(
+            self.realtime_controls_frame,
+            text="🧪 Test Data",
+            command=self.add_test_realtime_data,
+            state="normal"
+        )
         
         # Export format
         self.export_format_frame = ttk.Frame(self.advanced_frame)
@@ -366,10 +372,12 @@ class UnsafeFileScannerGUI:
         self.realtime_controls_frame.columnconfigure(0, weight=1)
         self.realtime_controls_frame.columnconfigure(1, weight=1)
         self.realtime_controls_frame.columnconfigure(2, weight=1)
+        self.realtime_controls_frame.columnconfigure(3, weight=1)
         
         self.view_realtime_btn.grid(row=0, column=0, padx=(0, 5), sticky=(tk.W, tk.E))
         self.export_realtime_btn.grid(row=0, column=1, padx=(0, 5), sticky=(tk.W, tk.E))
-        self.clear_realtime_btn.grid(row=0, column=2, sticky=(tk.W, tk.E))
+        self.clear_realtime_btn.grid(row=0, column=2, padx=(0, 5), sticky=(tk.W, tk.E))
+        self.test_realtime_btn.grid(row=0, column=3, sticky=(tk.W, tk.E))
         
         # Export format
         self.export_format_frame.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(5, 0))
@@ -823,6 +831,9 @@ Risk Level Breakdown:
     
     def export_realtime_results(self):
         """Export real-time monitoring results."""
+        print("DEBUG: export_realtime_results called")
+        print(f"DEBUG: scan_results length: {len(self.scan_results)}")
+        
         if not self.scan_results:
             messagebox.showinfo("Info", "No real-time monitoring results to export")
             return
@@ -878,6 +889,9 @@ Risk Level Breakdown:
     
     def clear_realtime_results(self):
         """Clear real-time monitoring results."""
+        print("DEBUG: clear_realtime_results called")
+        print(f"DEBUG: scan_results length: {len(self.scan_results)}")
+        
         if not self.scan_results:
             messagebox.showinfo("Info", "No real-time monitoring results to clear")
             return
@@ -889,6 +903,55 @@ Risk Level Breakdown:
             self.clear_realtime_btn.config(state="disabled")
             messagebox.showinfo("Success", "Real-time monitoring results cleared")
     
+    def add_test_realtime_data(self):
+        """Add test data for real-time monitoring results."""
+        print("DEBUG: add_test_realtime_data called")
+        
+        # Create some test unsafe files
+        from unsafe_file_scanner import UnsafeFile
+        
+        test_files = [
+            UnsafeFile(
+                path="/test/world_writable_file.txt",
+                permissions="rwxrwxrwx",
+                owner="testuser",
+                group="testgroup",
+                size=1024,
+                modified_time="2024-01-01 12:00:00",
+                risk_level="HIGH",
+                issues=["World-writable"]
+            ),
+            UnsafeFile(
+                path="/test/suid_binary",
+                permissions="rwsr-xr-x",
+                owner="root",
+                group="root",
+                size=2048,
+                modified_time="2024-01-01 12:01:00",
+                risk_level="CRITICAL",
+                issues=["SUID binary"]
+            ),
+            UnsafeFile(
+                path="/test/suspicious_script.sh",
+                permissions="rwxr-xr-x",
+                owner="user",
+                group="user",
+                size=512,
+                modified_time="2024-01-01 12:02:00",
+                risk_level="MEDIUM",
+                issues=["Executable script", "Potential security risk"]
+            )
+        ]
+        
+        # Add test files to scan results
+        self.scan_results.extend(test_files)
+        
+        # Enable buttons
+        self.view_realtime_btn.config(state="normal")
+        self.export_realtime_btn.config(state="normal")
+        self.clear_realtime_btn.config(state="normal")
+        
+        messagebox.showinfo("Success", f"Added {len(test_files)} test files to real-time monitoring results")
     
     def open_rules_manager(self):
         """Open rules management window."""

@@ -680,12 +680,6 @@ Risk Level Breakdown:
                 self.is_monitoring = True
                 self.realtime_btn.config(text="⏹️ Stop Monitor")
                 self.status_indicator.config(text="● Monitoring...", foreground="#e74c3c")
-                
-                # Enable real-time monitoring controls when monitoring starts
-                self.view_realtime_btn.config(state="normal")
-                self.export_realtime_btn.config(state="normal")
-                self.clear_realtime_btn.config(state="normal")
-                
                 messagebox.showinfo("Success", "Real-time monitoring started")
                 
             except Exception as e:
@@ -888,7 +882,6 @@ Risk Level Breakdown:
             self.export_realtime_btn.config(state="disabled")
             self.clear_realtime_btn.config(state="disabled")
             messagebox.showinfo("Success", "Real-time monitoring results cleared")
-    
     
     def open_rules_manager(self):
         """Open rules management window."""

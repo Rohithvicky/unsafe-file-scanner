@@ -188,6 +188,12 @@ class UnsafeFileScannerGUI:
             command=self.clear_realtime_results,
             state="disabled"
         )
+        self.test_realtime_btn = ttk.Button(
+            self.realtime_controls_frame,
+            text="🧪 Test Data",
+            command=self.add_test_realtime_data,
+            state="normal"
+        )
         
         # Export format
         self.export_format_frame = ttk.Frame(self.advanced_frame)
@@ -366,10 +372,12 @@ class UnsafeFileScannerGUI:
         self.realtime_controls_frame.columnconfigure(0, weight=1)
         self.realtime_controls_frame.columnconfigure(1, weight=1)
         self.realtime_controls_frame.columnconfigure(2, weight=1)
+        self.realtime_controls_frame.columnconfigure(3, weight=1)
         
         self.view_realtime_btn.grid(row=0, column=0, padx=(0, 5), sticky=(tk.W, tk.E))
         self.export_realtime_btn.grid(row=0, column=1, padx=(0, 5), sticky=(tk.W, tk.E))
-        self.clear_realtime_btn.grid(row=0, column=2, sticky=(tk.W, tk.E))
+        self.clear_realtime_btn.grid(row=0, column=2, padx=(0, 5), sticky=(tk.W, tk.E))
+        self.test_realtime_btn.grid(row=0, column=3, sticky=(tk.W, tk.E))
         
         # Export format
         self.export_format_frame.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(5, 0))
@@ -740,6 +748,9 @@ Risk Level Breakdown:
     
     def view_realtime_results(self):
         """View real-time monitoring results in a new window."""
+        print("DEBUG: view_realtime_results called")
+        print(f"DEBUG: scan_results length: {len(self.scan_results)}")
+        
         if not self.scan_results:
             messagebox.showinfo("Info", "No real-time monitoring results to display")
             return
@@ -823,6 +834,9 @@ Risk Level Breakdown:
     
     def export_realtime_results(self):
         """Export real-time monitoring results."""
+        print("DEBUG: export_realtime_results called")
+        print(f"DEBUG: scan_results length: {len(self.scan_results)}")
+        
         if not self.scan_results:
             messagebox.showinfo("Info", "No real-time monitoring results to export")
             return
@@ -878,6 +892,9 @@ Risk Level Breakdown:
     
     def clear_realtime_results(self):
         """Clear real-time monitoring results."""
+        print("DEBUG: clear_realtime_results called")
+        print(f"DEBUG: scan_results length: {len(self.scan_results)}")
+        
         if not self.scan_results:
             messagebox.showinfo("Info", "No real-time monitoring results to clear")
             return
@@ -888,7 +905,6 @@ Risk Level Breakdown:
             self.export_realtime_btn.config(state="disabled")
             self.clear_realtime_btn.config(state="disabled")
             messagebox.showinfo("Success", "Real-time monitoring results cleared")
-    
     
     def open_rules_manager(self):
         """Open rules management window."""

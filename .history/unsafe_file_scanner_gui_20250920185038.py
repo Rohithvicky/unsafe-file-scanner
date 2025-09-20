@@ -740,6 +740,9 @@ Risk Level Breakdown:
     
     def view_realtime_results(self):
         """View real-time monitoring results in a new window."""
+        print("DEBUG: view_realtime_results called")
+        print(f"DEBUG: scan_results length: {len(self.scan_results)}")
+        
         if not self.scan_results:
             messagebox.showinfo("Info", "No real-time monitoring results to display")
             return
@@ -823,6 +826,9 @@ Risk Level Breakdown:
     
     def export_realtime_results(self):
         """Export real-time monitoring results."""
+        print("DEBUG: export_realtime_results called")
+        print(f"DEBUG: scan_results length: {len(self.scan_results)}")
+        
         if not self.scan_results:
             messagebox.showinfo("Info", "No real-time monitoring results to export")
             return
@@ -878,6 +884,9 @@ Risk Level Breakdown:
     
     def clear_realtime_results(self):
         """Clear real-time monitoring results."""
+        print("DEBUG: clear_realtime_results called")
+        print(f"DEBUG: scan_results length: {len(self.scan_results)}")
+        
         if not self.scan_results:
             messagebox.showinfo("Info", "No real-time monitoring results to clear")
             return
@@ -888,7 +897,6 @@ Risk Level Breakdown:
             self.export_realtime_btn.config(state="disabled")
             self.clear_realtime_btn.config(state="disabled")
             messagebox.showinfo("Success", "Real-time monitoring results cleared")
-    
     
     def open_rules_manager(self):
         """Open rules management window."""

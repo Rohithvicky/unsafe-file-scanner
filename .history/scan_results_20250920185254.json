@@ -1,0 +1,49 @@
+{
+  "scan_info": {
+    "timestamp": "2025-09-20T18:52:55.610901",
+    "scanner_version": "1.0.0",
+    "total_files_scanned": 97,
+    "scan_duration_seconds": 0.0774071216583252
+  },
+  "statistics": {
+    "total_files": 97,
+    "unsafe_files": 2,
+    "suid_files": 0,
+    "sgid_files": 0,
+    "world_writable": 0,
+    "non_owner_writable": 2,
+    "scan_duration": 0.0774071216583252
+  },
+  "unsafe_files": [
+    {
+      "path": "C:/Users/vicky/OneDrive/Desktop/AI\\tempCodeRunnerFile.julia",
+      "permissions": "-rw-rw-rw-",
+      "owner": "0",
+      "group": "0",
+      "size": 1072,
+      "modified_time": "2025-08-13T20:55:24.950363",
+      "issues": [
+        "Potentially world-writable (Windows)"
+      ],
+      "risk_level": "LOW"
+    },
+    {
+      "path": "C:/Users/vicky/OneDrive/Desktop/AI\\tempCodeRunnerFile.python",
+      "permissions": "-rw-rw-rw-",
+      "owner": "0",
+      "group": "0",
+      "size": 3321,
+      "modified_time": "2025-09-02T11:07:42.081585",
+      "issues": [
+        "Potentially world-writable (Windows)"
+      ],
+      "risk_level": "LOW"
+    }
+  ],
+  "summary": {
+    "total_unsafe_files": 2,
+    "high_risk_files": 0,
+    "medium_risk_files": 0,
+    "low_risk_files": 2
+  }
+}

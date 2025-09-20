@@ -167,39 +167,13 @@ class UnsafeFileScannerGUI:
             command=self.open_rules_manager,
             state="normal" if RULE_ENGINE_AVAILABLE else "disabled"
         )
-        
-        # Real-time monitoring controls
-        self.realtime_controls_frame = ttk.Frame(self.advanced_frame)
-        self.view_realtime_btn = ttk.Button(
-            self.realtime_controls_frame,
-            text="📊 View Real-time Results",
-            command=self.view_realtime_results,
-            state="disabled"
-        )
-        self.export_realtime_btn = ttk.Button(
-            self.realtime_controls_frame,
-            text="💾 Export Real-time Results",
-            command=self.export_realtime_results,
-            state="disabled"
-        )
-        self.clear_realtime_btn = ttk.Button(
-            self.realtime_controls_frame,
-            text="🗑️ Clear Real-time Results",
-            command=self.clear_realtime_results,
-            state="disabled"
-        )
-        
-        # Export format
-        self.export_format_frame = ttk.Frame(self.advanced_frame)
-        ttk.Label(self.export_format_frame, text="Export Format:").pack(side=tk.LEFT)
         self.export_format_combo = ttk.Combobox(
-            self.export_format_frame,
+            self.advanced_frame,
             values=["JSON", "CSV", "HTML"],
             state="readonly",
             width=10
         )
         self.export_format_combo.set("JSON")
-        self.export_format_combo.pack(side=tk.LEFT, padx=(5, 0))
         
         # Right panel - Results
         self.right_panel = ttk.LabelFrame(self.content_frame, text="Scan Results", padding="15")
@@ -361,18 +335,9 @@ class UnsafeFileScannerGUI:
         self.realtime_btn.grid(row=0, column=0, padx=(0, 5), sticky=(tk.W, tk.E), pady=(0, 5))
         self.rules_btn.grid(row=0, column=1, padx=(5, 0), sticky=(tk.W, tk.E), pady=(0, 5))
         
-        # Real-time monitoring controls
-        self.realtime_controls_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(5, 0))
-        self.realtime_controls_frame.columnconfigure(0, weight=1)
-        self.realtime_controls_frame.columnconfigure(1, weight=1)
-        self.realtime_controls_frame.columnconfigure(2, weight=1)
-        
-        self.view_realtime_btn.grid(row=0, column=0, padx=(0, 5), sticky=(tk.W, tk.E))
-        self.export_realtime_btn.grid(row=0, column=1, padx=(0, 5), sticky=(tk.W, tk.E))
-        self.clear_realtime_btn.grid(row=0, column=2, sticky=(tk.W, tk.E))
-        
         # Export format
-        self.export_format_frame.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(5, 0))
+        ttk.Label(self.advanced_frame, text="Export Format:").grid(row=1, column=0, sticky=tk.W, pady=(5, 0))
+        self.export_format_combo.grid(row=1, column=1, sticky=(tk.W, tk.E), pady=(5, 0))
         
         # Right panel - Results
         self.right_panel.grid(row=0, column=1, sticky=(tk.W, tk.E, tk.N, tk.S))
@@ -680,12 +645,6 @@ Risk Level Breakdown:
                 self.is_monitoring = True
                 self.realtime_btn.config(text="⏹️ Stop Monitor")
                 self.status_indicator.config(text="● Monitoring...", foreground="#e74c3c")
-                
-                # Enable real-time monitoring controls when monitoring starts
-                self.view_realtime_btn.config(state="normal")
-                self.export_realtime_btn.config(state="normal")
-                self.clear_realtime_btn.config(state="normal")
-                
                 messagebox.showinfo("Success", "Real-time monitoring started")
                 
             except Exception as e:
@@ -710,185 +669,11 @@ Risk Level Breakdown:
         # Update GUI
         self.update_results_display()
         
-        # Enable real-time monitoring controls
-        self.view_realtime_btn.config(state="normal")
-        self.export_realtime_btn.config(state="normal")
-        self.clear_realtime_btn.config(state="normal")
-        
         # Show notification
         messagebox.showwarning(
             "Security Alert", 
             f"Unsafe file detected:\n{unsafe_file.path}\nRisk: {unsafe_file.risk_level}"
         )
-    
-    def update_results_display(self):
-        """Update the results display with real-time monitoring results."""
-        if not self.scan_results:
-            return
-        
-        # Update the main results display to show real-time results
-        if self.scanner:
-            # Temporarily replace scanner results with real-time results
-            original_files = self.scanner.unsafe_files
-            self.scanner.unsafe_files = self.scan_results
-            
-            # Update the display
-            self.update_results()
-            
-            # Restore original results
-            self.scanner.unsafe_files = original_files
-    
-    def view_realtime_results(self):
-        """View real-time monitoring results in a new window."""
-        if not self.scan_results:
-            messagebox.showinfo("Info", "No real-time monitoring results to display")
-            return
-        
-        # Create results window
-        results_window = tk.Toplevel(self.root)
-        results_window.title("Real-time Monitoring Results")
-        results_window.geometry("1000x600")
-        
-        # Create frame for results
-        results_frame = ttk.Frame(results_window)
-        results_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-        
-        # Title
-        title_label = ttk.Label(
-            results_frame, 
-            text=f"Real-time Monitoring Results ({len(self.scan_results)} files detected)",
-            font=("Segoe UI", 14, "bold")
-        )
-        title_label.pack(pady=(0, 10))
-        
-        # Results treeview
-        tree_frame = ttk.Frame(results_frame)
-        tree_frame.pack(fill=tk.BOTH, expand=True)
-        
-        tree = ttk.Treeview(
-            tree_frame,
-            columns=("timestamp", "path", "permissions", "owner", "group", "risk", "issues"),
-            show="headings",
-            height=15
-        )
-        
-        # Configure columns
-        tree.heading("timestamp", text="Detected At")
-        tree.heading("path", text="File Path")
-        tree.heading("permissions", text="Permissions")
-        tree.heading("owner", text="Owner")
-        tree.heading("group", text="Group")
-        tree.heading("risk", text="Risk Level")
-        tree.heading("issues", text="Issues")
-        
-        tree.column("timestamp", width=120)
-        tree.column("path", width=300)
-        tree.column("permissions", width=100)
-        tree.column("owner", width=80)
-        tree.column("group", width=80)
-        tree.column("risk", width=80)
-        tree.column("issues", width=200)
-        
-        # Add scrollbar
-        scrollbar = ttk.Scrollbar(tree_frame, orient="vertical", command=tree.yview)
-        tree.configure(yscrollcommand=scrollbar.set)
-        
-        # Pack treeview and scrollbar
-        tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        
-        # Populate results
-        for i, file in enumerate(self.scan_results):
-            # Get current timestamp for display
-            from datetime import datetime
-            timestamp = datetime.now().strftime("%H:%M:%S")
-            
-            tree.insert("", "end", values=(
-                timestamp,
-                file.path,
-                file.permissions,
-                file.owner,
-                file.group,
-                file.risk_level,
-                ", ".join(file.issues)
-            ))
-        
-        # Buttons
-        button_frame = ttk.Frame(results_frame)
-        button_frame.pack(fill=tk.X, pady=(10, 0))
-        
-        ttk.Button(button_frame, text="Export Results", command=lambda: self.export_realtime_results()).pack(side=tk.LEFT, padx=(0, 5))
-        ttk.Button(button_frame, text="Clear Results", command=lambda: self.clear_realtime_results()).pack(side=tk.LEFT, padx=(0, 5))
-        ttk.Button(button_frame, text="Close", command=results_window.destroy).pack(side=tk.RIGHT)
-    
-    def export_realtime_results(self):
-        """Export real-time monitoring results."""
-        if not self.scan_results:
-            messagebox.showinfo("Info", "No real-time monitoring results to export")
-            return
-        
-        # Get selected export format
-        export_format = self.export_format_combo.get().lower()
-        
-        # Set default extension based on format
-        if export_format == "json":
-            default_ext = ".json"
-            filetypes = [("JSON files", "*.json"), ("All files", "*.*")]
-        elif export_format == "csv":
-            default_ext = ".csv"
-            filetypes = [("CSV files", "*.csv"), ("All files", "*.*")]
-        elif export_format == "html":
-            default_ext = ".html"
-            filetypes = [("HTML files", "*.html"), ("All files", "*.*")]
-        else:
-            default_ext = ".json"
-            filetypes = [("JSON files", "*.json"), ("All files", "*.*")]
-        
-        filename = filedialog.asksaveasfilename(
-            title="Export Real-time Monitoring Results",
-            defaultextension=default_ext,
-            filetypes=filetypes
-        )
-        
-        if filename:
-            try:
-                # Create a temporary scanner to use its export methods
-                temp_scanner = UnsafeFileScanner()
-                temp_scanner.unsafe_files = self.scan_results
-                
-                # Generate report
-                report = temp_scanner.generate_report()
-                
-                # Save based on format
-                if export_format == "json":
-                    with open(filename, 'w') as f:
-                        json.dump(report, f, indent=2)
-                elif export_format == "csv":
-                    temp_scanner.save_report(report, filename)
-                elif export_format == "html":
-                    temp_scanner.save_report(report, filename)
-                else:
-                    # Fallback to JSON
-                    with open(filename, 'w') as f:
-                        json.dump(report, f, indent=2)
-                
-                messagebox.showinfo("Success", f"Real-time monitoring results exported to {filename}")
-            except Exception as e:
-                messagebox.showerror("Error", f"Failed to export real-time results: {e}")
-    
-    def clear_realtime_results(self):
-        """Clear real-time monitoring results."""
-        if not self.scan_results:
-            messagebox.showinfo("Info", "No real-time monitoring results to clear")
-            return
-        
-        if messagebox.askyesno("Confirm", "Are you sure you want to clear all real-time monitoring results?"):
-            self.scan_results.clear()
-            self.view_realtime_btn.config(state="disabled")
-            self.export_realtime_btn.config(state="disabled")
-            self.clear_realtime_btn.config(state="disabled")
-            messagebox.showinfo("Success", "Real-time monitoring results cleared")
-    
     
     def open_rules_manager(self):
         """Open rules management window."""

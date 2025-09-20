@@ -889,6 +889,55 @@ Risk Level Breakdown:
             self.clear_realtime_btn.config(state="disabled")
             messagebox.showinfo("Success", "Real-time monitoring results cleared")
     
+    def add_test_realtime_data(self):
+        """Add test data for real-time monitoring results."""
+        print("DEBUG: add_test_realtime_data called")
+        
+        # Create some test unsafe files
+        from unsafe_file_scanner import UnsafeFile
+        
+        test_files = [
+            UnsafeFile(
+                path="/test/world_writable_file.txt",
+                permissions="rwxrwxrwx",
+                owner="testuser",
+                group="testgroup",
+                size=1024,
+                modified_time="2024-01-01 12:00:00",
+                risk_level="HIGH",
+                issues=["World-writable"]
+            ),
+            UnsafeFile(
+                path="/test/suid_binary",
+                permissions="rwsr-xr-x",
+                owner="root",
+                group="root",
+                size=2048,
+                modified_time="2024-01-01 12:01:00",
+                risk_level="CRITICAL",
+                issues=["SUID binary"]
+            ),
+            UnsafeFile(
+                path="/test/suspicious_script.sh",
+                permissions="rwxr-xr-x",
+                owner="user",
+                group="user",
+                size=512,
+                modified_time="2024-01-01 12:02:00",
+                risk_level="MEDIUM",
+                issues=["Executable script", "Potential security risk"]
+            )
+        ]
+        
+        # Add test files to scan results
+        self.scan_results.extend(test_files)
+        
+        # Enable buttons
+        self.view_realtime_btn.config(state="normal")
+        self.export_realtime_btn.config(state="normal")
+        self.clear_realtime_btn.config(state="normal")
+        
+        messagebox.showinfo("Success", f"Added {len(test_files)} test files to real-time monitoring results")
     
     def open_rules_manager(self):
         """Open rules management window."""
