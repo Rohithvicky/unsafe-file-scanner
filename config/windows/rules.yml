@@ -1,5 +1,0 @@
-rules:
-  - id: 1
-    path: C:\
-    rule: '\.ps1$'
-    message: "Powershell script present in root directory."

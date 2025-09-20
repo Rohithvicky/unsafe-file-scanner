@@ -1,0 +1,88 @@
+{
+  "exclude_dirs": [
+    ".git",
+    ".svn",
+    "node_modules",
+    "__pycache__",
+    ".pytest_cache",
+    ".cache",
+    "tmp",
+    "temp",
+    "logs",
+    "log",
+    "var/log",
+    "var/cache",
+    "var/tmp",
+    "proc",
+    "sys",
+    "dev",
+    "run"
+  ],
+  "exclude_files": [
+    ".DS_Store",
+    "Thumbs.db",
+    "desktop.ini",
+    "*.tmp",
+    "*.swp",
+    "*.swo",
+    "*~",
+    "*.log",
+    "*.pid",
+    "*.lock"
+  ],
+  "max_file_size": 52428800,
+  "follow_symlinks": false,
+  "log_level": "INFO",
+  "output_format": "json",
+  "output_file": null,
+  "risk_thresholds": {
+    "high": [
+      "suid",
+      "sgid", 
+      "world_writable",
+      "world_executable"
+    ],
+    "medium": [
+      "non_owner_writable",
+      "group_writable",
+      "others_executable"
+    ],
+    "low": [
+      "other_issues",
+      "executable_not_readable",
+      "unusual_permissions"
+    ]
+  },
+  "scan_options": {
+    "check_suid": true,
+    "check_sgid": true,
+    "check_world_writable": true,
+    "check_non_owner_writable": true,
+    "check_other_permissions": true,
+    "include_hidden_files": true,
+    "include_system_files": false,
+    "check_directories": true,
+    "check_symlinks": false
+  },
+  "reporting": {
+    "include_file_contents": false,
+    "max_issues_per_file": 20,
+    "group_by_risk_level": true,
+    "sort_by": "risk_level",
+    "include_statistics": true,
+    "include_timestamps": true
+  },
+  "performance": {
+    "max_depth": 50,
+    "scan_timeout": 3600,
+    "memory_limit": 1073741824,
+    "parallel_scanning": false,
+    "max_workers": 4
+  },
+  "security": {
+    "require_root": false,
+    "safe_mode": true,
+    "validate_paths": true,
+    "skip_protected_dirs": true
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "scan_info": {
+    "timestamp": "2025-09-20T15:56:24.783035",
+    "scanner_version": "1.0.0",
+    "total_files_scanned": 3,
+    "scan_duration_seconds": 0.005973100662231445
+  },
+  "statistics": {
+    "total_files": 3,
+    "unsafe_files": 3,
+    "suid_files": 0,
+    "sgid_files": 0,
+    "world_writable": 0,
+    "non_owner_writable": 2,
+    "scan_duration": 0.005973100662231445
+  },
+  "unsafe_files": [
+    {
+      "path": "C:\\Users\\vicky\\AppData\\Local\\Temp\\tmp16huqefn\\high_risk.txt",
+      "permissions": "-rw-rw-rw-",
+      "owner": "0",
+      "group": "0",
+      "size": 24,
+      "modified_time": "2025-09-20T15:56:24.769632",
+      "issues": [
+        "Potentially world-writable (Windows)",
+        "Path pattern match: **/temp/**"
+      ],
+      "risk_level": "LOW"
+    },
+    {
+      "path": "C:\\Users\\vicky\\AppData\\Local\\Temp\\tmp16huqefn\\low_risk.txt",
+      "permissions": "-rw-rw-rw-",
+      "owner": "0",
+      "group": "0",
+      "size": 23,
+      "modified_time": "2025-09-20T15:56:24.771676",
+      "issues": [
+        "Potentially world-writable (Windows)",
+        "Path pattern match: **/temp/**"
+      ],
+      "risk_level": "LOW"
+    },
+    {
+      "path": "C:\\Users\\vicky\\AppData\\Local\\Temp\\tmp16huqefn\\medium_risk.txt",
+      "permissions": "-r--r--r--",
+      "owner": "0",
+      "group": "0",
+      "size": 26,
+      "modified_time": "2025-09-20T15:56:24.770669",
+      "issues": [
+        "Path pattern match: **/temp/**"
+      ],
+      "risk_level": "LOW"
+    }
+  ],
+  "summary": {
+    "total_unsafe_files": 3,
+    "high_risk_files": 0,
+    "medium_risk_files": 0,
+    "low_risk_files": 3
+  }
+}

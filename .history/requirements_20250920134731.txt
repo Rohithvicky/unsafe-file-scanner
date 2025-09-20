@@ -1,0 +1,29 @@
+# Unsafe File Scanner - Python Dependencies
+# Core Python modules (included in standard library)
+# - os
+# - sys
+# - stat
+# - argparse
+# - logging
+# - json
+# - time
+# - pathlib
+# - typing
+# - dataclasses
+# - datetime
+# - pwd
+# - grp
+
+# Optional dependencies for enhanced functionality
+watchdog>=2.1.0  # For real-time file monitoring (future enhancement)
+colorama>=0.4.4  # For colored terminal output
+rich>=12.0.0     # For enhanced console output and formatting
+pyyaml>=6.0      # For YAML configuration file support
+click>=8.0.0     # For advanced CLI interface (alternative to argparse)
+
+# Development and testing dependencies
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=22.0.0
+flake8>=5.0.0
+mypy>=0.991

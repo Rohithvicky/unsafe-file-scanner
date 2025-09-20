@@ -1,0 +1,33 @@
+{
+    "exclude_patterns": [
+        "*.log",
+        "*.tmp",
+        "*.temp",
+        "*.swp",
+        "*.bak",
+        "*.cache",
+        "node_modules/",
+        ".git/",
+        ".svn/",
+        "*.pyc",
+        "__pycache__/",
+        "/proc/",
+        "/sys/",
+        "/dev/",
+        "/tmp/",
+        "/var/tmp/"
+    ],
+    "max_file_size": 104857600,
+    "log_level": "DEBUG",
+    "risk_thresholds": {
+        "high": 3,
+        "medium": 2,
+        "low": 1
+    },
+    "scan_options": {
+        "check_suid_sgid": true,
+        "check_world_writable": true,
+        "check_non_owner_writable": true,
+        "check_other_permissions": true
+    }
+}
