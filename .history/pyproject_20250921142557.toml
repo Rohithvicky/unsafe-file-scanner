@@ -1,0 +1,194 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unsafe-file-scanner"
+version = "1.0.0"
+description = "Professional Security Tool for File Permission Analysis"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Rohith Vicky", email = "rohithvicky@example.com"}
+]
+maintainers = [
+    {name = "Rohith Vicky", email = "rohithvicky@example.com"}
+]
+keywords = [
+    "security", "file-permissions", "linux", "suid", "sgid",
+    "world-writable", "privilege-escalation", "file-integrity", "monitoring",
+    "file-system", "permission-analysis", "security-audit", "system-administration",
+    "gui", "cli", "real-time-monitoring"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Developers",
+    "Topic :: Security",
+    "Topic :: System :: Systems Administration",
+    "Topic :: System :: Monitoring",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Environment :: Console",
+    "Environment :: X11 Applications :: Qt",
+    "Natural Language :: English",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "watchdog>=2.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "pytest-xdist>=3.3.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+    "bandit>=1.7.0",
+    "safety>=2.3.0",
+]
+docs = [
+    "sphinx>=6.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+    "sphinx-autodoc-typehints>=1.23.0",
+]
+build = [
+    "build>=0.10.0",
+    "twine>=4.0.0",
+    "wheel>=0.40.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Rohithvicky/unsafe-file-scanner"
+Repository = "https://github.com/Rohithvicky/unsafe-file-scanner"
+Documentation = "https://github.com/Rohithvicky/unsafe-file-scanner/wiki"
+"Bug Tracker" = "https://github.com/Rohithvicky/unsafe-file-scanner/issues"
+Changelog = "https://github.com/Rohithvicky/unsafe-file-scanner/blob/main/CHANGELOG.md"
+
+[project.scripts]
+unsafe-file-scanner = "unsafe_file_scanner.unsafe_file_scanner:main"
+ufs = "unsafe_file_scanner.unsafe_file_scanner:main"
+unsafe-file-scanner-gui = "unsafe_file_scanner.unsafe_file_scanner_gui:main"
+ufs-gui = "unsafe_file_scanner.unsafe_file_scanner_gui:main"
+
+[tool.setuptools.packages.find]
+exclude = ["tests*", "docs*"]
+
+[tool.setuptools.package-data]
+unsafe_file_scanner = ["*.json", "*.md", "*.txt", "*.yml", "*.yaml"]
+
+# Black configuration
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# isort configuration
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["unsafe_file_scanner"]
+
+# MyPy configuration
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+exclude = [
+    "tests/",
+    "docs/",
+    "build/",
+    "dist/",
+]
+
+# Pytest configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--strict-config",
+    "--tb=short",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["unsafe_file_scanner"]
+omit = [
+    "tests/*",
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+# Flake8 configuration
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    "*.egg-info",
+    ".venv",
+    ".env",
+]
+
+# Bandit configuration
+[tool.bandit]
+exclude_dirs = ["tests", "test_*"]
+skips = ["B101", "B601"]

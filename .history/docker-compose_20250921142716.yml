@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  unsafe-file-scanner:
+    build: .
+    container_name: unsafe-file-scanner
+    image: unsafe-file-scanner:latest
+    volumes:
+      - ./results:/app/results
+      - /path/to/scan:/scan:ro  # Mount directory to scan (read-only)
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["unsafe-file-scanner", "/scan", "--output", "/app/results/scan_results.json"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "unsafe-file-scanner", "--help"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # GUI version (requires X11 forwarding)
+  unsafe-file-scanner-gui:
+    build: .
+    container_name: unsafe-file-scanner-gui
+    image: unsafe-file-scanner:latest
+    volumes:
+      - ./results:/app/results
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - DISPLAY=${DISPLAY}
+      - PYTHONUNBUFFERED=1
+    command: ["unsafe-file-scanner-gui"]
+    network_mode: host
+    depends_on:
+      - unsafe-file-scanner
