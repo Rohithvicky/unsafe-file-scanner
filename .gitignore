@@ -142,3 +142,7 @@ __pycache__/
 # Config files (keep templates)
 config.json
 advanced_config.json
+
+# IDE history files
+.history/
+.vscode-upload.json
